@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest // 별다른 설정없이 @SpringBootTest를 사용할 경우 H2 데이터 베이스를 자동으로 실행하게 된다.
-public class PostsRepositoryTest {
+public class PostsRepositoryTest { // save, findAll 등 기능을 테스트
 
     @Autowired
     PostsRepository postsRepository;
