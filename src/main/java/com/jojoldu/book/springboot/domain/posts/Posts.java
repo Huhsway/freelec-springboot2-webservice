@@ -24,7 +24,7 @@ public class Posts extends BaseTimeEntity { // 실제 DB테이블과 매칭될 �
     // 문자열의 경우 VARCHAR(255)가 기본값인데, 사이즈를 500으로 늘리고 싶거나 (ex:title), 타입을 TEXT로 변경하고 싶거나(ex:content)등의 경우에 사용된다.
     private String title;
 
-    @Column(length = 500, nullable = false)
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
     private String author;
