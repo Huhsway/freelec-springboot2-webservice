@@ -30,7 +30,7 @@ deploy: # S3로 파일 업로드 혹은 CodeDeploy로 배포 등 외부 서비�
     local_dir: deploy # before_deploy에서 생성한 디렉토리, 앞에서 생성한 deploy 디렉토리를 지정, 해당 위치의 파일들만 S3로 전송
     wait-until-deployed: true
 
-  - provider: s3
+  - provider: codedeploy
       access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
       secret_access_key: $AWS_SECRET_KEY # Travis repo settings에 설정된 값
       bucket: huhsway-springboot-build # s3 버킷
