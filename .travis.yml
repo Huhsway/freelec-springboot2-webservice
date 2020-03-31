@@ -30,6 +30,9 @@ deploy: # S3로 파일 업로드 혹은 CodeDeploy로 배포 등 외부 서비�
     local_dir: deploy # before_deploy에서 생성한 디렉토리, 앞에서 생성한 deploy 디렉토리를 지정, 해당 위치의 파일들만 S3로 전송
     wait-until-deployed: true
 
+before_install:
+  - chmod +x gradlew
+
 # CI 실행 완료 시 메일로 알람
 notifications:  # Travis CI 실행 완료 시 자동으로 알람이 가도록 설정
   email:
