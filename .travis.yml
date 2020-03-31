@@ -14,9 +14,6 @@ cache: # 그레이들을 통해 의존성을 받게 되면 이를 해당 디렉�
 
 script: "./gradlew clean build" # master 브랜치에 푸시되었을때 수행하는 명령어, 여기서는 프로젝트 내부에 둔 gradlew을 통해 clean&build를 수행
 
-before_install:
-  - chomod +x gradlew
-
 before_deploy: # deploy 명령어가 실행되기 전에 수행, CodeDeploy는 Jar 파일은 인식하지 못하므로 Jar+기타 설정 파일들을 모아 압축(zip)한다.
   - zip -r freelec-springboot2-webservice * # 현재 위치의 모든 파일을 freelec-springboot2-webservice 이름으로 압축(zip)한다. 명령어의 마지막 위치는 본인의 프로젝트 이름이어야 함
   - mkdir -p deploy # deploy라는 디렉토리를 Travis CI가 실행 중인 위치에서 생성
