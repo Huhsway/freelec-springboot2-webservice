@@ -14,10 +14,19 @@ cache: # 그레이들을 통해 의존성을 받게 되면 이를 해당 디렉�
 
 script: "./gradlew clean build" # master 브랜치에 푸시되었을때 수행하는 명령어, 여기서는 프로젝트 내부에 둔 gradlew을 통해 clean&build를 수행
 
-before_deploy: # deploy 명령어가 실행되기 전에 수행, CodeDeploy는 Jar 파일은 인식하지 못하므로 Jar+기타 설정 파일들을 모아 압축(zip)한다.
-  - zip -r freelec-springboot2-webservice * # 현재 위치의 모든 파일을 freelec-springboot2-webservice 이름으로 압축(zip)한다. 명령어의 마지막 위치는 본인의 프로젝트 이름이어야 함
-  - mkdir -p deploy # deploy라는 디렉토리를 Travis CI가 실행 중인 위치에서 생성
-  - mv freelec-springboot2-webservice.zip deploy/freelec-springboot2-webservice.zip # freelec-springboot2-webservice.zip 파일을 deploy/freelec-springboot2-webservice.zip으로 이동시킨다.
+#before_deploy: # deploy 명령어가 실행되기 전에 수행, CodeDeploy는 Jar 파일은 인식하지 못하므로 Jar+기타 설정 파일들을 모아 압축(zip)한다.
+  #- zip -r freelec-springboot2-webservice * # 현재 위치의 모든 파일을 freelec-springboot2-webservice 이름으로 압축(zip)한다. 명령어의 마지막 위치는 본인의 프로젝트 이름이어야 함
+  #- mkdir -p deploy # deploy라는 디렉토리를 Travis CI가 실행 중인 위치에서 생성
+  #- mv freelec-springboot2-webservice.zip deploy/freelec-springboot2-webservice.zip # freelec-springboot2-webservice.zip 파일을 deploy/freelec-springboot2-webservice.zip으로 이동시킨다.
+
+before_deploy:
+  - mkdir -p before-deploy # zip에 포함시킬 파일들을 담을 디렉토리 생성, Travis CI는 S3ㄹ 특정 파일만 업로드가 안됨 디렉토리 단위로만 업로드 가능하기 때문에 deploy 디렉토리는 항상 생성
+  - cp scripts/*.sh before-deploy/ # before-deploy에는 zip 파일에 포함시킬 파일들을 저장
+  - cp appspec.yml before-deploy/
+  - cp build/libs/*.jar before-deploy/
+  - cd before-deploy && zip -r before-deploy * # before-deploy로 이동후 전체 압축, zip -r 명령어를 통해 before-deploy 디렉토리 전체 파일을 압축
+  - cd ../ && mkdir -p deploy # 상위 디렉토리로 이동후 deploy 디렉토리 생성
+  - mv before-deploy/before-deploy.zip deploy/freelec-springboot2-webservice.zip # deploy로 zip파일 이동
 
 deploy: # S3로 파일 업로드 혹은 CodeDeploy로 배포 등 외부 서비스와 연동될 행위들을 선언
   - provider: s3
