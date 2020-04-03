@@ -30,3 +30,7 @@ nohup java -jar \
     -Dspring.config.location=classpath:/application.properties,classpath:/application-$IDLE_PROFILE.properties,/home/ec2-user/app/application-oauth.properties,/home/ec2-user/app/application-real-db.properties \
     -Dspring.profiles.active=$IDLE_PROFILE \
     $JAR_NAME > $REPOSITORY/nohup.out 2>&1 &
+
+# 기본적인 스크립트는 step2의 deploy.sh와 유사
+# 다른 점이라면 IDLE_PROFILE을 통해 properties 파일을 가져오고 (application-$IDLE_PROFILE.properties),active profile을 지정하는 것(-Dspring.profiles.active=$IDLE_PROFILE) 뿐이다.
+# 여기서도 IDLE_PROFILE을 사용하니 profile.sh을 가져와야 한다.
