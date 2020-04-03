@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-ABSPATH=$(readlink -f $0) # 현재 stop.sh가 속해 있는 경로를 찾는다. 하단의 코드와 같이 profile.sh의 경로를 찾기위해 사용됨
-ABSDIR=$(dirname $ABSPATH) # 자바로 보면 일종의 import 구문이다. 해당 코드로 인해 stop.sh에서도 profile.sh의 여러 function을 사용할 수 있게 된다.
+ABSPATH=$(readlink -f $0)
+ABSDIR=$(dirname $ABSPATH)
 source ${ABSDIR}/profile.sh
 
 IDLE_PORT=$(find_idle_port)
