@@ -38,6 +38,10 @@ do
   sleep 10
 done
 
+echo ">스위칭"
+sleep 10
+/home/ec2-user/app/step2/zip/switch.sh
+
 # 엔진엑스와 연결되지 않은 포트로 스프링 부트가 잘 수행되었는지 체크
 # 잘 떴는지 확인되어야 엔진엑스 프록시 설정을 변경(switch_proxy)한다.
 # 엔진엑스 프록시 설정 변경은 switch.sh에서 수행
